@@ -29,15 +29,17 @@ Route::group(['prefix'=>'student'],function(){
     ])->where(['subject'=>'(chinese|english|math)']);
 });
 */
+Route::pattern('student_no','s3[A-Z][0-9]{6}');
+Route::pattern('subject','(chinese|english|math)');
 Route::get('student/{student_no}', function ($student_no) {
     return "學號：".$student_no;
 });
-Route::get('student/{student_no}/score', function ($student_no) {
-    return "學號 ".$student_no." 的所有成績";
-});
-Route::get('student/{student_no}/score/{subject}', function ($student_no,$subject) {
-    return "學號 ".$student_no."的".$subject."成績";
-});
 Route::get('student/{student}/score/{subject?}',function($student_no,$subject = null){
-    return "學號 ".$student_no."DER".((is_null($subject))?"所有科目":$subject)."成績";
+    return "學號 ".$student_no."的".((is_null($subject))?"所有科目":$subject)."成績";
 });
+//Route::get('student/{student_no}/score', function ($student_no) {
+//    return "學號 ".$student_no." 的所有成績";
+//});
+//Route::get('student/{student_no}/score/{subject}', function ($student_no,$subject) {
+//    return "學號 ".$student_no."的".$subject."成績";
+//})->where(['student_no'=>'s3[A-Z]{6}','subject'=>'(chinese|english|math)']);
