@@ -32,18 +32,17 @@ Route::group(['prefix'=>'student'],function(){
 Route::pattern('student_no','s3[A-Z][0-9]{6}');
 Route::pattern('subject','(chinese|english|math)');
 Route::get('/','HomeController@index');
+Route::group(['namespace' => 'Cool'],function (){
+    Route::get('cool', 'TestController@index');
+});
 Route::group(['prefix'=>'student'],function(){
     Route::get('{student_no}',[
         'as'=>'student',
-        'uses'=>function ($student_no) {
-            return "學號：".$student_no;
-        }
+        'uses'=>'StudentController@getStudentData'
     ]);    
     Route::get('{student}/score/{subject?}',[
         'as'=>'student.score',
-        'uses'=>function($student_no,$subject = null){
-            return "學號 ".$student_no."的".((is_null($subject))?"所有科目":$subject)."成績";
-        }
+        'uses'=>'StudentController@getStudentScore'
     ]);
 });
 //Route::get('student/{student_no}/score', function ($student_no) {
