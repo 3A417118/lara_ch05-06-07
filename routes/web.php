@@ -29,6 +29,8 @@ Route::group(['prefix'=>'student'],function(){
     ])->where(['subject'=>'(chinese|english|math)']);
 });
 */
+Route::get('/board','BoardController@getIndex');
+Route::get('/score', 'StudentController@getStudentScore');
 Route::pattern('student_no','s3[A-Z][0-9]{6}');
 Route::pattern('subject','(chinese|english|math)');
 Route::get('/','HomeController@index');
@@ -45,6 +47,7 @@ Route::group(['prefix'=>'student'],function(){
         'uses'=>'StudentController@getStudentScore'
     ]);
 });
+
 //Route::get('student/{student_no}/score', function ($student_no) {
 //    return "學號 ".$student_no." 的所有成績";
 //});
